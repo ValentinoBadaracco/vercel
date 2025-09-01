@@ -1,0 +1,51 @@
+[
+  {
+    "id": "16f66a77-8036-4187-9ebf-9c597c9b91d2",
+    "bookId": "s_-9d-71tmwC",
+    "rating": 5,
+    "text": "si",
+    "votes": 11
+  },
+  {
+    "id": "5e8be9a1-1362-4de7-8efd-c98cdb7f9d00",
+    "bookId": "s_-9d-71tmwC",
+    "rating": 5,
+    "text": "no",
+    "votes": -2
+  },
+  {
+    "id": "9f64536c-5899-4481-a55a-ad0357098ee6",
+    "bookId": "s_-9d-71tmwC",
+    "rating": 1,
+    "text": "noo",
+    "votes": 4
+  },
+  {
+    "id": "10322dac-9d37-48e1-b3ed-1c0ba0d276e8",
+    "bookId": "s_-9d-71tmwC",
+    "rating": 5,
+    "text": "dd",
+    "votes": -8
+  },
+  {
+    "id": "066ddb9d-406b-47a7-bf24-a55558304cf3",
+    "bookId": "fuaODwAAQBAJ",
+    "rating": 4,
+    "text": "nose",
+    "votes": 1
+  },
+  {
+    "id": "8264d6ef-9b6c-40bb-b7c7-c314543ef818",
+    "bookId": "B0loOBA3ejIC",
+    "rating": 3,
+    "text": "god",
+    "votes": 3
+  },
+  {
+    "id": "90071360-a5fd-47f8-b26a-0b8191fee932",
+    "bookId": "B0loOBA3ejIC",
+    "rating": 5,
+    "text": "buenardo",
+    "votes": 3
+  }
+]
