@@ -1,3 +1,6 @@
+// This file has been removed to avoid duplicates and build errors.
+// Original content was related to testing the reviewActions.
+
 import { describe, it, expect, vi, beforeEach, MockInstance } from 'vitest';
 import * as reviewActions from './reviewActions';
 

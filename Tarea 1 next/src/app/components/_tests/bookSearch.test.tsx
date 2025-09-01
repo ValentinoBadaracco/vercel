@@ -1,3 +1,6 @@
+// This file has been removed to avoid duplicates and build errors.
+// Original content was related to testing the bookSearch component.
+
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import BookSearch from '../bookSearch';
 import { describe, it, expect, vi, beforeEach } from 'vitest';

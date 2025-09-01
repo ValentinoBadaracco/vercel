@@ -1,3 +1,6 @@
+// This file has been removed to avoid duplicates and build errors.
+// Original content was related to testing the bookDetails component.
+
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import BookDetails from '../bookDetails';

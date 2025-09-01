@@ -13,6 +13,7 @@ build/
 
 # Testing
 coverage/
+tests/
 
 # Misc
 .DS_Store
