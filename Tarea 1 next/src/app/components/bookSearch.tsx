@@ -1,3 +1,6 @@
+'use client';
+
+
 // Tipos globales
 export interface Book {
   id: string;
@@ -13,7 +16,6 @@ export interface Book {
   };
 }
 // src/app/components/BookSearch.tsx
-'use client';
 import { useState } from 'react';
 
 export default function BookSearch({ onSelectBook }: { onSelectBook: (book: Book) => void }) {

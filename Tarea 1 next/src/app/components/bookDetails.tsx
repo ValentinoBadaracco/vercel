@@ -1,3 +1,4 @@
+"use client";
 import type { Book } from "./bookSearch";
 export interface Review {
   id: string;
@@ -7,7 +8,6 @@ export interface Review {
   votes: number;
 }
 // src/app/components/BookDetails.tsx
-"use client";
 import { useEffect, useState } from "react";
 import { addReview, getReviews, voteReview } from "../actions/reviewActions";
 
