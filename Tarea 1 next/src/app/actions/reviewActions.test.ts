@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, MockInstance } from 'vitest';
 import * as reviewActions from './reviewActions';
 
 const fakeReviews = [
@@ -17,12 +17,15 @@ vi.mock('crypto', () => ({
   randomUUID: () => 'uuid-mock',
 }));
 
-const fs = require('fs/promises').default;
+import fsPromises from 'fs/promises';
+const fs = fsPromises;
 
 describe('reviewActions', () => {
+  const mockedReadFile = fs.readFile as unknown as MockInstance;
+  const mockedWriteFile = fs.writeFile as unknown as MockInstance;
   beforeEach(() => {
-    fs.readFile.mockResolvedValue(JSON.stringify([...fakeReviews]));
-    fs.writeFile.mockResolvedValue(undefined);
+    mockedReadFile.mockResolvedValue(JSON.stringify([...fakeReviews]));
+    mockedWriteFile.mockResolvedValue(undefined);
   });
 
   it('getReviews filtra por bookId', async () => {
@@ -37,17 +40,17 @@ describe('reviewActions', () => {
     form.set('rating', '4');
     form.set('text', 'Nuevo');
     await reviewActions.addReview(form);
-    expect(fs.writeFile).toHaveBeenCalled();
-    const data = JSON.parse(fs.writeFile.mock.calls[0][1]);
-    expect(data.some((r: any) => r.bookId === '3' && r.text === 'Nuevo')).toBe(true);
+  expect(fs.writeFile).toHaveBeenCalled();
+  const data = JSON.parse(mockedWriteFile.mock.calls[0][1]);
+  expect(data.some((r: unknown) => (r as any).bookId === '3' && (r as any).text === 'Nuevo')).toBe(true);
   });
 
   it('voteReview suma votos', async () => {
     await reviewActions.voteReview('a', 1);
     expect(fs.writeFile).toHaveBeenCalled();
-    const data = JSON.parse(fs.writeFile.mock.calls[0][1]);
-    const review = data.find((r: any) => r.id === 'a');
-    expect(review.votes).toBe(3);
+  const data = JSON.parse(mockedWriteFile.mock.calls[0][1]);
+  const review = data.find((r: unknown) => (r as any).id === 'a');
+  expect((review as any).votes).toBe(3);
   });
 
   it('voteReview no falla si no existe el id', async () => {

@@ -25,14 +25,14 @@ export async function addReview(formDarta: FormData) {
 export async function getReviews(bookId: string) {
     const data = await fs.readFile(reviewsFile, 'utf-8');
     const allReviews = JSON.parse(data);
-    return allReviews.filter((r: any) => r.bookId === bookId);
+    return allReviews.filter((r: unknown) => (r as any).bookId === bookId);
 }
 
 export async function voteReview(reviewId: string, delta: number) {
     const data = await fs.readFile(reviewsFile, 'utf-8');
     const allReviews = JSON.parse(data);
 
-    const review = allReviews.find((r: any) => r.id === reviewId);
+    const review = allReviews.find((r: unknown) => (r as any).id === reviewId);
     if (review) {
         review.votes += delta;
         await fs.writeFile(reviewsFile, JSON.stringify(allReviews, null, 2), 'utf-8');

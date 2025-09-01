@@ -1,11 +1,11 @@
 // src/app/page.tsx
 'use client';
 import { useState } from 'react';
-import BookSearch from './components/bookSearch';
+import BookSearch, { Book } from './components/bookSearch';
 import BookDetails from './components/bookDetails';
 
 export default function HomePage() {
-  const [selectedBook, setSelectedBook] = useState<any>(null);
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
   return (
     <main>

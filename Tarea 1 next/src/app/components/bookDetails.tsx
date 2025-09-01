@@ -1,17 +1,25 @@
+import type { Book } from "./bookSearch";
+export interface Review {
+  id: string;
+  bookId: string;
+  rating: number;
+  text: string;
+  votes: number;
+}
 // src/app/components/BookDetails.tsx
 "use client";
 import { useEffect, useState } from "react";
 import { addReview, getReviews, voteReview } from "../actions/reviewActions";
 
-export default function BookDetails({ book }: { book: any }) {
-  const [reviews, setReviews] = useState<any[]>([]);
+export default function BookDetails({ book }: { book: Book }) {
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [rating, setRating] = useState(5);
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function fetchReviews() {
-    const res = await getReviews(book.id);
-    setReviews(res);
+  const res = await getReviews(book.id);
+  setReviews(res as Review[]);
   }
 
   useEffect(() => {

@@ -1,10 +1,24 @@
+// Tipos globales
+export interface Book {
+  id: string;
+  volumeInfo: {
+    title: string;
+    authors?: string[];
+    publishedDate?: string;
+    description?: string;
+    categories?: string[];
+    imageLinks?: {
+      thumbnail?: string;
+    };
+  };
+}
 // src/app/components/BookSearch.tsx
 'use client';
 import { useState } from 'react';
 
-export default function BookSearch({ onSelectBook }: { onSelectBook: (book: any) => void }) {
+export default function BookSearch({ onSelectBook }: { onSelectBook: (book: Book) => void }) {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<Book[]>([]);
   const [showDetails, setShowDetails] = useState<{ [id: string]: boolean }>({});
 
   const searchBooks = async (e: React.FormEvent) => {

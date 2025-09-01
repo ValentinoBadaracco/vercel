@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, MockInstance } from 'vitest';
 import { searchBooks } from './bookActions';
 
 describe('searchBooks', () => {
@@ -10,7 +10,7 @@ describe('searchBooks', () => {
           { id: '2', volumeInfo: { title: 'Libro 2' } },
         ],
       }),
-    }) as any;
+    }) as unknown as typeof fetch;
   });
 
   it('devuelve resultados de la API', async () => {
@@ -21,7 +21,7 @@ describe('searchBooks', () => {
   });
 
   it('devuelve array vacío si no hay items', async () => {
-    (global.fetch as any).mockResolvedValueOnce({
+    (global.fetch as unknown as MockInstance).mockResolvedValueOnce({
       json: async () => ({}),
     });
     const results = await searchBooks('nada');
