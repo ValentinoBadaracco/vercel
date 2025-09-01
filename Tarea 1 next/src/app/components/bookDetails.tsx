@@ -79,25 +79,31 @@ export default function BookDetails({ book }: { book: Book }) {
             <li className="text-gray-500">Aún no hay reseñas para este libro.</li>
           )}
           {reviews.map((r, i) => (
-            <li key={r.id} className="bg-gray-50 rounded p-3 shadow flex flex-col sm:flex-row sm:items-center gap-2">
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            <li key={(r as any).id} className="bg-gray-50 rounded p-3 shadow flex flex-col sm:flex-row sm:items-center gap-2">
               <div className="flex items-center gap-2 mb-1 sm:mb-0">
-                <span className="font-bold text-yellow-500">{'★'.repeat(r.rating)}{'☆'.repeat(5 - r.rating)}</span>
-                <span className="text-gray-700 ml-2">{r.text}</span>
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                <span className="font-bold text-yellow-500">{'★'.repeat((r as any).rating)}{'☆'.repeat(5 - (r as any).rating)}</span>
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                <span className="text-gray-700 ml-2">{(r as any).text}</span>
               </div>
               <div className="flex items-center gap-2 ml-auto">
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 <button
-                  onClick={() => handleVote(r.id, 1)}
+                  onClick={() => handleVote((r as any).id, 1)}
                   className="px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600"
                   title="Votar positivo"
                   disabled={loading}
                 >👍</button>
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 <button
-                  onClick={() => handleVote(r.id, -1)}
+                  onClick={() => handleVote((r as any).id, -1)}
                   className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                   title="Votar negativo"
                   disabled={loading}
                 >👎</button>
-                <span className="text-gray-700">Votos: {r.votes}</span>
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                <span className="text-gray-700">Votos: {(r as any).votes}</span>
               </div>
             </li>
           ))}

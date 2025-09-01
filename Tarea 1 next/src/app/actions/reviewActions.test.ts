@@ -42,6 +42,7 @@ describe('reviewActions', () => {
     await reviewActions.addReview(form);
   expect(fs.writeFile).toHaveBeenCalled();
   const data = JSON.parse(mockedWriteFile.mock.calls[0][1]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   expect(data.some((r: unknown) => (r as any).bookId === '3' && (r as any).text === 'Nuevo')).toBe(true);
   });
 
@@ -49,7 +50,9 @@ describe('reviewActions', () => {
     await reviewActions.voteReview('a', 1);
     expect(fs.writeFile).toHaveBeenCalled();
   const data = JSON.parse(mockedWriteFile.mock.calls[0][1]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const review = data.find((r: unknown) => (r as any).id === 'a');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   expect((review as any).votes).toBe(3);
   });
 

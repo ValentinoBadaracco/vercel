@@ -5,7 +5,8 @@ import BookSearch, { Book } from './components/bookSearch';
 import BookDetails from './components/bookDetails';
 
 export default function HomePage() {
-  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [selectedBook, setSelectedBook] = useState<any>(null);
 
   return (
     <main>

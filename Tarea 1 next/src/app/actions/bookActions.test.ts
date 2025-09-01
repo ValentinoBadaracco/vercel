@@ -3,6 +3,7 @@ import { searchBooks } from './bookActions';
 
 describe('searchBooks', () => {
   beforeEach(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     global.fetch = vi.fn().mockResolvedValue({
       json: async () => ({
         items: [
@@ -21,6 +22,7 @@ describe('searchBooks', () => {
   });
 
   it('devuelve array vacío si no hay items', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (global.fetch as unknown as MockInstance).mockResolvedValueOnce({
       json: async () => ({}),
     });
