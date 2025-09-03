@@ -47,5 +47,12 @@
     "rating": 5,
     "text": "buenardo",
     "votes": 3
+  },
+  {
+    "id": "79fe9e28-4bc9-4e44-bfac-db3e4bd661a9",
+    "bookId": "NYcKAQAAIAAJ",
+    "rating": 4,
+    "text": "holaaa",
+    "votes": 0
   }
 ]
