@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import type { Book } from "./bookSearch";
 export interface Review {
   id: string;
@@ -33,11 +34,13 @@ export default function BookDetails({ book }: { book: Book }) {
     formData.append("bookId", book.id);
     formData.append("rating", rating.toString());
     formData.append("text", text);
-    await addReview(formData);
-    setText("");
-    setRating(5);
-    await fetchReviews();
-    setLoading(false);
+  await addReview(formData);
+  setText("");
+  setRating(5);
+  // Forzar un pequeño delay para asegurar el reseteo antes de refrescar
+  await new Promise(res => setTimeout(res, 10));
+  await fetchReviews();
+  setLoading(false);
   }
 
   async function handleVote(reviewId: string, delta: number) {

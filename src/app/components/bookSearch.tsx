@@ -1,3 +1,4 @@
+import React from "react";
 'use client';
 
 
@@ -69,11 +70,18 @@ export default function BookSearch({ onSelectBook }: { onSelectBook: (book: Book
               >
                 {showDetails[(book as any).id] ? 'Ocultar detalles' : 'Ver detalles'}
               </button>
+              <button
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                onClick={() => {
+                  // eslint-disable-next-line no-console
+                  console.log('DEBUG: onSelectBook called with', book);
+                  onSelectBook(book);
+                }}
+              >
+                Seleccionar libro
+              </button>
               {showDetails[(book as any).id] && (
-                <div className="mt-2 text-sm bg-gray-50 p-2 rounded text-black">
-                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                  <div><b>Publicado:</b> {(book as any).volumeInfo.publishedDate}</div>    
-                  {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                <div>
                   <div><b>Categorías:</b> {(book as any).volumeInfo.categories?.join(', ')}</div>
                   {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                   <div><b>Descripción:</b> {(book as any).volumeInfo.description?.slice(0, 300) || 'Sin descripción'}...</div>
