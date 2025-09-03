@@ -1,46 +1,51 @@
-'use server';
 
-import fs from 'fs/promises';
-import path from 'path';
-import { randomUUID } from 'crypto';
+// Utilidades cliente para manejar reseñas en localStorage
+export interface Review {
+    id: string;
+    bookId: string;
+    rating: number;
+    text: string;
+    votes: number;
+}
 
+function getAllReviews(): Review[] {
+    if (typeof window === 'undefined') return [];
+    const data = localStorage.getItem('reviews');
+    return data ? JSON.parse(data) : [];
+}
 
-const reviewsFile = path.join(process.cwd(), 'data', 'reviews.json');
+function saveAllReviews(reviews: Review[]) {
+    if (typeof window === 'undefined') return;
+    localStorage.setItem('reviews', JSON.stringify(reviews));
+}
 
-
-
-export async function addReview(formDarta: FormData) {
-    const bookId = formDarta.get('bookId') as string;
-    const rating = Number(formDarta.get('rating'));
-    const text = formDarta.get('text') as string;
-
-    const data = await fs.readFile(reviewsFile, 'utf-8');
-    const allReviews = JSON.parse(data);
-
-    allReviews.push({ id: randomUUID(), bookId, rating, text, votes: 0 });
-    await fs.writeFile(reviewsFile, JSON.stringify(allReviews, null, 2), 'utf-8');
-
+export async function addReview(formData: FormData) {
+    const bookId = formData.get('bookId') as string;
+    const rating = Number(formData.get('rating'));
+    const text = formData.get('text') as string;
+    const allReviews = getAllReviews();
+    allReviews.push({
+        id: Math.random().toString(36).slice(2),
+        bookId,
+        rating,
+        text,
+        votes: 0,
+    });
+    saveAllReviews(allReviews);
 }
 
 export async function getReviews(bookId: string) {
-    const data = await fs.readFile(reviewsFile, 'utf-8');
-    const allReviews = JSON.parse(data);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return allReviews.filter((r: unknown) => (r as any).bookId === bookId);
+    const allReviews = getAllReviews();
+    return allReviews.filter((r) => r.bookId === bookId);
 }
 
 export async function voteReview(reviewId: string, delta: number) {
-    const data = await fs.readFile(reviewsFile, 'utf-8');
-    const allReviews = JSON.parse(data);
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const review = allReviews.find((r: unknown) => (r as any).id === reviewId);
+    const allReviews = getAllReviews();
+    const review = allReviews.find((r) => r.id === reviewId);
     if (review) {
         review.votes += delta;
-        await fs.writeFile(reviewsFile, JSON.stringify(allReviews, null, 2), 'utf-8');
-
+        saveAllReviews(allReviews);
     }
-
 }
 
 
