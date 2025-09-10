@@ -4,21 +4,30 @@ import { useState } from 'react';
 import BookSearch, { Book } from './components/bookSearch';
 import BookDetails from './components/bookDetails';
 
-export default function HomePage() {
+import AuthForm from './components/AuthForm';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
+export default function MainPage() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [selectedBook, setSelectedBook] = useState<any>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+    if (!token) {
+      router.push('/login');
+    }
+  }, [router]);
+
+  function handleAuthSuccess() {
+    router.push('/home');
+  }
 
   return (
     <main>
-      <h1>App de Reseñas de Libros</h1>
-      {!selectedBook ? (
-        <BookSearch onSelectBook={setSelectedBook} />
-      ) : (
-        <>
-          <button onClick={() => setSelectedBook(null)}>Volver a buscar</button>
-          <BookDetails book={selectedBook} />
-        </>
-      )}
+      <h1>Login / Registro</h1>
+      <AuthForm onAuthSuccess={handleAuthSuccess} />
     </main>
   );
 }
