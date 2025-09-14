@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import type { Book } from "./bookSearch";
+import Reviews from './Reviews';
 export interface Review {
   id: string;
   bookId: string;
@@ -66,52 +67,9 @@ export default function BookDetails({ book }: { book: Book }) {
         </div>
       </div>
 
-      <div className="mb-8">
-        <h3 className="text-lg font-semibold mb-2">Agregar Reseña</h3>
-        <form onSubmit={handleAddReview} className="flex gap-2 mb-2">
-          <input type="number" min={1} max={5} value={rating} onChange={e => setRating(Number(e.target.value))} required className="w-16 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400" />
-          <textarea value={text} onChange={e => setText(e.target.value)} required placeholder="Escribe tu reseña..." className="flex-1 border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none" rows={2} />
-          <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" disabled={loading}>Agregar</button>
-        </form>
-      </div>
+  {/* El formulario de agregar reseña ahora está en el componente <Reviews /> */}
       
-      <div>
-        <h3 className="text-lg font-semibold mb-2">Reseñas</h3>
-        <ul className="space-y-4">
-          {reviews.length === 0 && (
-            <li className="text-gray-500">Aún no hay reseñas para este libro.</li>
-          )}
-          {reviews.map((r, i) => (
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            <li key={(r as any).id} className="bg-gray-50 rounded p-3 shadow flex flex-col sm:flex-row sm:items-center gap-2">
-              <div className="flex items-center gap-2 mb-1 sm:mb-0">
-                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                <span className="font-bold text-yellow-500">{'★'.repeat((r as any).rating)}{'☆'.repeat(5 - (r as any).rating)}</span>
-                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                <span className="text-gray-700 ml-2">{(r as any).text}</span>
-              </div>
-              <div className="flex items-center gap-2 ml-auto">
-                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                <button
-                  onClick={() => handleVote((r as any).id, 1)}
-                  className="px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-                  title="Votar positivo"
-                  disabled={loading}
-                >👍</button>
-                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                <button
-                  onClick={() => handleVote((r as any).id, -1)}
-                  className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                  title="Votar negativo"
-                  disabled={loading}
-                >👎</button>
-                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                <span className="text-gray-700">Votos: {(r as any).votes}</span>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+  <Reviews bookId={book.id} />
     </div>
   );
 }

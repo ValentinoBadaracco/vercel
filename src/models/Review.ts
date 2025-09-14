@@ -14,7 +14,7 @@ const ReviewSchema = new Schema<IReview>({
   bookId: { type: String, required: true },
   rating: { type: Number, required: true, min: 1, max: 5 },
   text: { type: String, required: true },
-  votes: { type: Number, default: 0 },
+  votes: [{ type: Schema.Types.ObjectId, ref: 'Vote' }],
   createdAt: { type: Date, default: Date.now },
 });
 
