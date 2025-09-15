@@ -8,7 +8,12 @@ export default function HomePage() {
   const [selectedBook, setSelectedBook] = useState<any>(null);
 
   return (
-    <main>
+    <main style={{ background: '#fff', minHeight: '100vh' }}>
+      <div style={{ position: 'absolute', top: 20, right: 20 }}>
+        <a href="/profile">
+          <button className="bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700">Perfil</button>
+        </a>
+      </div>
       <h1>App de Reseñas de Libros</h1>
       {!selectedBook ? (
         <BookSearch onSelectBook={setSelectedBook} />

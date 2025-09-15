@@ -64,6 +64,26 @@ export default function BookDetails({ book }: { book: Book }) {
           <p className="text-gray-700 mb-1"><b>Autor:</b> {book.volumeInfo.authors?.join(', ')}</p>
           <p className="text-gray-700 mb-1"><b>Publicado:</b> {book.volumeInfo.publishedDate}</p>
           <p className="text-gray-600 text-sm mt-2">{book.volumeInfo.description}</p>
+          <button
+            className="mt-4 px-4 py-2 bg-pink-600 text-white rounded shadow hover:bg-pink-700"
+            onClick={async () => {
+              const token = localStorage.getItem('token');
+              const res = await fetch('/api/favorites', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ bookId: book.id })
+              });
+              const data = await res.json();
+              if (data.success) {
+                alert('Libro agregado a favoritos');
+              } else {
+                alert(data.error || 'Error al agregar a favoritos');
+              }
+            }}
+          >Agregar a favoritos</button>
         </div>
       </div>
 

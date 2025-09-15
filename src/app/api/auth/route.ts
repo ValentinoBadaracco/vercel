@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import User from '../../../models/User';
 import { NextResponse } from 'next/server';
 import { connectDB } from '../../../lib/mongo';
+import { registerSchema, loginSchema } from './validation';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
 
@@ -14,6 +15,10 @@ export async function POST(req: Request) {
     const { action, username, email, password } = body;
 
     if (action === 'register') {
+      const parse = registerSchema.safeParse({ username, email, password });
+      if (!parse.success) {
+        return NextResponse.json({ error: 'Datos inválidos', details: parse.error.issues }, { status: 400 });
+      }
       const exists = await User.findOne({ $or: [{ email }, { username }] });
       if (exists) {
         return NextResponse.json({ error: 'Usuario o email ya existe' }, { status: 400 });
@@ -24,6 +29,10 @@ export async function POST(req: Request) {
     }
 
     if (action === 'login') {
+      const parse = loginSchema.safeParse({ email, password });
+      if (!parse.success) {
+        return NextResponse.json({ error: 'Datos inválidos', details: parse.error.issues }, { status: 400 });
+      }
       const user = await User.findOne({ email });
       if (!user) {
         return NextResponse.json({ error: 'Usuario no encontrado' }, { status: 400 });

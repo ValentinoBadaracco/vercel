@@ -1,11 +1,12 @@
 import mongoose, { Schema, Document, Types } from 'mongoose';
+import './Vote';
 
 export interface IReview extends Document {
-  user: Types.ObjectId; 
-  bookId: string; 
+  user: Types.ObjectId;
+  bookId: string;
   rating: number;
   text: string;
-  votes: number;
+  votes: Types.ObjectId[];
   createdAt: Date;
 }
 

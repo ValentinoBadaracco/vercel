@@ -47,6 +47,7 @@ export default function AuthForm({ onAuthSuccess }: { onAuthSuccess?: () => void
         onSubmit={handleSubmit}
         style={{
           background: "#fff",
+          color: "#111",
           padding: "2rem 2.5rem",
           borderRadius: "1rem",
           boxShadow: "0 4px 24px rgba(0,0,0,0.12)",
