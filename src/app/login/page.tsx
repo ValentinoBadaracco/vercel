@@ -11,7 +11,7 @@ export default function LoginPage() {
 
   return (
     <main>
-      <h1>Login / Registro</h1>
+      <h1>Inicio</h1>
       <AuthForm onAuthSuccess={handleAuthSuccess} />
     </main>
   );
