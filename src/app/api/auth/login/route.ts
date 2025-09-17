@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     const { email, password } = body;
     const parse = loginSchema.safeParse({ email, password });
     if (!parse.success) {
-      return NextResponse.json({ error: 'Datos inválidos', details: parse.error.issues }, { status: 400 });
+      return NextResponse.json({ error: 'Datos invalidos', details: parse.error.issues }, { status: 400 });
     }
     const user = await User.findOne({ email });
     if (!user) {
