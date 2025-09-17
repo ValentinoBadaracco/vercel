@@ -10,9 +10,16 @@ export default function AuthForm({ onAuthSuccess }: { onAuthSuccess?: () => void
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setMessage('');
-    const body: any = { action, email, password };
-    if (action === 'register') body.username = username;
-    const res = await fetch('/api/auth', {
+    let endpoint = '';
+    let body: any = {};
+    if (action === 'login') {
+      endpoint = '/api/auth/login';
+      body = { email, password };
+    } else {
+      endpoint = '/api/auth/register';
+      body = { username, email, password };
+    }
+    const res = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
