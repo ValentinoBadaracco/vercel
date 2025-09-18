@@ -1,0 +1,2 @@
+src/app/actions/*.test.ts
+src/app/components/_tests/*
